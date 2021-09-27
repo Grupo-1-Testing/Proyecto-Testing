@@ -9,7 +9,7 @@ install:
 
 addons:
   sonarcloud:
-    organization: "vtespinosa_Proyecto-Testing"
+    organization: "vtespinosa"
     token: $SONAR_TOKEN
 
 script:
