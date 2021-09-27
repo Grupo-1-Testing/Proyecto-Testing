@@ -10,8 +10,7 @@ install:
 addons:
   sonarcloud:
     organization: "vtespinosa_Proyecto-Testing"
-    token:
-      secure: $SONAR_TOKEN
+    token: $SONAR_TOKEN
 
 script:
   - rubocop
