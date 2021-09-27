@@ -15,4 +15,4 @@ addons:
 script:
   - rubocop
   - rake test
-  - sonar-scanner
+  - sonar-scanner -X
