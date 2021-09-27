@@ -1,4 +1,5 @@
 language: ruby
+dist: xenial
 
 before_install:
   - gem install bundler
@@ -6,6 +7,13 @@ before_install:
 install:
   - bundle install
 
+addons:
+  sonarcloud:
+    organization: "vtespinosa_Proyecto-Testing"
+    token:
+      secure: $SONAR_TOKEN
+
 script:
   - rubocop
   - rake test
+  - sonar-scanner
