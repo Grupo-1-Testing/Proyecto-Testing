@@ -41,22 +41,18 @@ class Board
   end
 
   def count_mine_neigbours(row, col, mine_counter = 0)
-    # (-1...1).each do |x|
-    #   (-1...1).each do |y|
-    #     neighbor_x = row + x
-    #     neighbor_y = col + y
-    #     if neighbor_x.between?(0, @dimension - 1) && neighbor_y.between?(0, @dimension - 1) && !(x.zero? && y.zero?)
-    #       mine_counter += @cells[neighbor_x][neighbor_y].has_mine ? 1 : 0
-    #     end
-    #   end
-    # end
     directions = [[-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 1], [1, -1], [1, 0], [1, 1]]
     directions.each do |direction|
       neighbor_x = row + direction[0]
       neighbor_y = col + direction[1]
-      if neighbor_x.between?(0, @dimension - 1) && neighbor_y.between?(0, @dimension - 1) && !(x.zero? && y.zero?)
-        mine_counter += @cells[neighbor_x][neighbor_y].has_mine ? 1 : 0
-      end
+      check_neighbor(neighbor_x, neighbor_y, mine_counter)
+    end
+    mine_counter
+  end
+
+  def check_neighbor(neighbor_x, neighbor_y, mine_counter)
+    if neighbor_x.between?(0, @dimension - 1) && neighbor_y.between?(0, @dimension - 1) && !(x.zero? && y.zero?)
+      mine_counter += @cells[neighbor_x][neighbor_y].has_mine ? 1 : 0
     end
     mine_counter
   end
