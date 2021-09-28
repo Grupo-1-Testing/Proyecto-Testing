@@ -2,15 +2,20 @@
 
 # Represents a position in the mineseaker board
 class Cell
-  attr_accessor :has_mine, :state, :value
+  attr_reader :has_mine, :state
+  attr_accessor :value
 
-  def initialize(has_mine, state, value)
+  def initialize(has_mine)
     @has_mine = has_mine
-    @state = state
     @value = value
+    @state = 'CLOSED'
   end
 
-  def discover; end
+  def discover
+    @state = 'DISCOVERED'
+  end
 
-  def flag; end
+  def flag
+    @state = 'FLAGGED'
+  end
 end
