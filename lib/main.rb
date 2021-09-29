@@ -3,3 +3,4 @@
 require_relative 'frontend/game'
 
 game = Game.new
+game.play

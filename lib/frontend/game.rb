@@ -12,10 +12,12 @@ class Game
     @board = Board.new(DIMENSION, NMINES)
   end
 
+  def play; end
+
   def print_board
     rows = []
     @board.cells.each_with_index do |row, row_idx|
-      row_hash = {'#'=> row_idx}
+      row_hash = { '#' => row_idx }
       row.each_with_index { |cell, col_idx| row_hash[col_idx.to_s] = cell_text(cell) }
       rows.push(row_hash)
     end
