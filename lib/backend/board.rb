@@ -73,6 +73,8 @@ class Board
       cell.discover
     when '2'
       cell.flag
+    else
+      raise 'Invalid value'
     end
   end
 

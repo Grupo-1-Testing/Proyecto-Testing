@@ -17,7 +17,7 @@ class Game
 
     while continue
       print_board
-      ask_movement
+      continue = ask_movement
     end
   end
 
