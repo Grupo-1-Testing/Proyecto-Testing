@@ -1,16 +1,20 @@
 # frozen_string_literal: true
 
+require 'set'
 require_relative 'cell'
 
 # Represents the board of mineseaker
 class Board
-  attr_accessor :dimension, :number_mines, :cells, :mine_cells
+  attr_reader :dimension, :number_mines, :cells
 
   def initialize(dimension, number_mines)
     @dimension = dimension
     @number_mines = number_mines
-    @mine_cells = Array(0...@dimension * @dimension).sample(@number_mines).sort
+    @mine_cells = Array(0...@dimension * @dimension).sample(@number_mines)
     @cells = []
+    create_board
+    update_cell_values
+    choose_start_cell
   end
 
   def create_board
@@ -23,7 +27,6 @@ class Board
       end
       @cells.append(row)
     end
-    update_cell_values
   end
 
   def create_cell(cell_number)
@@ -43,21 +46,28 @@ class Board
   def count_mine_neigbours(row, col, mine_counter = 0)
     directions = [[-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 1], [1, -1], [1, 0], [1, 1]]
     directions.each do |direction|
-      neighbor_x = row + direction[0]
-      neighbor_y = col + direction[1]
-      check_neighbor(neighbor_x, neighbor_y, mine_counter)
+      neighbour_x = row + direction[0]
+      neighbour_y = col + direction[1]
+      mine_counter += check_neighbour(neighbour_x, neighbour_y)
     end
     mine_counter
   end
 
-  def check_neighbor(neighbor_x, neighbor_y, mine_counter)
-    if neighbor_x.between?(0, @dimension - 1) && neighbor_y.between?(0, @dimension - 1) && !(x.zero? && y.zero?)
-      mine_counter += @cells[neighbor_x][neighbor_y].has_mine ? 1 : 0
-    end
-    mine_counter
+  def check_neighbour(neighbour_x, neighbour_y)
+    check_conditions = (
+      neighbour_x.between?(0, @dimension - 1) &&
+      neighbour_y.between?(0, @dimension - 1) &&
+      @cells[neighbour_x][neighbour_y].has_mine
+    )
+    check_conditions ? 1 : 0
   end
 
-  def check_conditions; end
+  def choose_start_cell
+    random_start_cell = Array((0...@dimension**2).to_set - @mine_cells.to_set).sample(1)[0]
+    @cells[random_start_cell.div(@dimension)][random_start_cell % @dimension].discover
+  end
+
+  def check_end_conditions; end
 
   def make_move; end
 end
