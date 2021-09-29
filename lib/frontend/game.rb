@@ -39,28 +39,55 @@ class Game
   end
 
   def ask_movement
+    option = ask_move_option
+
+    case option
+    when '1', '2'
+      make_move(option)
+    when '3'
+      exit
+    else
+      puts 'Por favor ingresar opción válida'
+      ask_movement
+    end
+  end
+
+  def ask_move_option
     puts 'Ingresa número de jugada:',
          '(1) Descubrir celda',
          '(2) Flag celda',
          '(3) Exit'
 
-    option = gets.chomp
+    gets.chomp
+  end
 
-    exit unless option != '3'
+  def make_move(move)
+    cell = ask_cell
+    @board.make_move(cell, move)
+    play
+  end
 
+  def ask_cell
     puts 'Ingresa fila de celda:'
-    cell_row = gets.chomp
+    cell_row = validate_cell(gets.chomp)
 
     puts 'Ingresa columna de celda:'
-    cell_col = gets.chomp
+    cell_col = validate_cell(gets.chomp)
+
+    @board.cells[cell_row][cell_col]
+  end
+
+  def validate_cell(position)
+    if (position.to_i.to_s == position) && position.to_i.between?(0, @board.dimension - 1)
+      position.to_i
+    else
+      puts 'Por favor ingresar número válido'
+      ask_cell
+    end
   end
 
   def exit
     puts 'Game Over'
     exit!
   end
-
-  def flag_cell; end
-
-  def discover_cell; end
 end
