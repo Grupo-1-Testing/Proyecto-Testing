@@ -11,6 +11,10 @@ task :test do
   ruby 'test/cell_test.rb'
 end
 
+task :run do
+  ruby 'lib/main.rb'
+end
+
 RuboCop::RakeTask.new(:lint) do |task|
   task.patterns = ['lib/**/*.rb', 'test/**/*.rb']
   task.fail_on_error = false
