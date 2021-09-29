@@ -67,7 +67,16 @@ class Board
     @cells[random_start_cell.div(@dimension)][random_start_cell % @dimension].discover
   end
 
-  def check_end_conditions; end
+  def make_move(cell, move)
+    case move
+    when '1'
+      cell.discover
+    when '2'
+      cell.flag
+    else
+      raise 'Invalid value'
+    end
+  end
 
-  def make_move; end
+  def check_end_conditions; end
 end
