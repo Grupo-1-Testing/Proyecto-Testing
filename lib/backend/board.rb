@@ -7,10 +7,10 @@ require_relative 'cell'
 class Board
   attr_reader :dimension, :number_mines, :cells
 
-  def initialize(dimension, number_mines)
+  def initialize(dimension, number_mines, mine_cells = nil)
     @dimension = dimension
     @number_mines = number_mines
-    @mine_cells = Array(0...@dimension * @dimension).sample(@number_mines)
+    @mine_cells = mine_cells || Array(0...@dimension * @dimension).sample(@number_mines)
     @cells = []
     create_board
     update_cell_values

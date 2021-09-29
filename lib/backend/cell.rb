@@ -7,7 +7,6 @@ class Cell
 
   def initialize(has_mine)
     @has_mine = has_mine
-    @value = value
     @state = 'CLOSED'
   end
 
