@@ -12,6 +12,7 @@ class Cell
 
   def discover
     @state = 'DISCOVERED'
+    !has_mine
   end
 
   def flag
