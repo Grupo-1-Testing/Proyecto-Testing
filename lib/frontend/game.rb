@@ -12,7 +12,10 @@ class Game
     @board = Board.new(DIMENSION, NMINES)
   end
 
-  def play; end
+  def play
+    print_board
+    ask_movement
+  end
 
   def print_board
     rows = []
@@ -35,7 +38,29 @@ class Game
     end
   end
 
-  def ask_movement; end
+  def ask_movement
+    puts 'Ingresa número de jugada:',
+         '(1) Descubrir celda',
+         '(2) Flag celda',
+         '(3) Exit'
 
-  def exit; end
+    option = gets.chomp
+
+    exit unless option != '3'
+
+    puts 'Ingresa fila de celda:'
+    cell_row = gets.chomp
+
+    puts 'Ingresa columna de celda:'
+    cell_col = gets.chomp
+  end
+
+  def exit
+    puts 'Game Over'
+    exit!
+  end
+
+  def flag_cell; end
+
+  def discover_cell; end
 end
