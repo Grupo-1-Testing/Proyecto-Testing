@@ -13,8 +13,12 @@ class Game
   end
 
   def play
-    print_board
-    ask_movement
+    continue = true
+
+    while continue
+      print_board
+      ask_movement
+    end
   end
 
   def print_board
@@ -64,7 +68,7 @@ class Game
   def make_move(move)
     cell = ask_cell
     @board.make_move(cell, move)
-    play
+    true
   end
 
   def ask_cell

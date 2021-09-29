@@ -74,7 +74,6 @@ class Board
     when '2'
       cell.flag
     end
-    update_cell_values
   end
 
   def check_end_conditions; end
