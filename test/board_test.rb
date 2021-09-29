@@ -7,7 +7,8 @@ require 'test/unit'
 class ClockTest < Test::Unit::TestCase
   def test_zero
     dimension = 5
-    board = Board.new(dimension)
+    number_mines = 1
+    board = Board.new(dimension, number_mines)
     assert_equal(dimension, board.dimension)
   end
 end
