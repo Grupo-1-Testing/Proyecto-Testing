@@ -78,16 +78,9 @@ class Game
       cell_row = gets.chomp.strip
       print 'Choose Column: '
       cell_col = gets.chomp.strip
-      return @board.cells[cell_row.to_i][cell_col.to_i] if validate_position(cell_row) && validate_position(cell_col)
-    end
-  end
-
-  def validate_position(position)
-    if (position.to_i.to_s == position) && position.to_i.between?(0, @board.dimension - 1)
-      true
-    else
-      puts 'Invalid cell position. Try again.'
-      false
+      if @board.validate_position(cell_row) && @board.validate_position(cell_col)
+        return @board.cells[cell_row.to_i][cell_col.to_i]
+      end
     end
   end
 end
