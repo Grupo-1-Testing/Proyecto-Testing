@@ -65,6 +65,7 @@ class Board
 
   def check_flags(option)
     return true if @flagged_cells == number_mines && option == '2'
+
     false
   end
 
