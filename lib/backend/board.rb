@@ -82,6 +82,7 @@ class Board
     when '2'
       cell.flag
       @flagged_cells += 1
+      check_end_conditions(cell)
     else
       raise 'Invalid value'
     end
@@ -97,13 +98,13 @@ class Board
   end
 
   def check_end_conditions(cell)
-    return false if cell.has_mine && cell.state != 'FLAGGED'
+    return 1 if cell.has_mine && cell.state != 'FLAGGED'
 
     cells.each do |row|
       row.each do |c|
-        return true if c.state == 'CLOSED'
+        return 2 if c.state == 'CLOSED'
       end
     end
-    false
+    3
   end
 end
