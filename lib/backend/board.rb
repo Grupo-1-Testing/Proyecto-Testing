@@ -80,8 +80,8 @@ class Board
       cell.discover
       check_end_conditions(cell)
     when '2'
-      cell.flag
-      @flagged_cells += 1
+      cell.state.eql?('CLOSED') ? cell.flag : cell.unflag
+      @flagged_cells +=  cell.state.eql?('FLAGGED') ? 1 : -1
       check_end_conditions(cell)
     else
       raise 'Invalid value'

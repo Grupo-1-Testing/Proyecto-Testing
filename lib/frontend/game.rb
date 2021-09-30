@@ -57,7 +57,7 @@ class Game
   def ask_move_option
     puts 'Choose play:',
          '(1) Discover cell',
-         '(2) Flag cell',
+         '(2) Flag/Unflag cell',
          '(3) Exit'
     gets.chomp
   end
