@@ -18,4 +18,4 @@
  1. **Instalación:** ejecutar `bundle install`
  2. **Ejecución:** ejecutar `rake run`
  3. **Testeo:** ejecutar `rake test`
- 4. **Linter**: ejecutar `rubocop`
+ 4. **Linter**: ejecutar `rubocop` o `rake lint`
