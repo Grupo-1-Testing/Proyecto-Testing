@@ -36,4 +36,30 @@ class BoardTest < Test::Unit::TestCase
     end
     assert_equal([1, 2, 2, 1], values)
   end
+
+  def test_validate_position_user_enters_a_letter
+    dimension = 4
+    number_mines = 1
+    board = Board.new(dimension, number_mines)
+    result = board.validate_position('a')
+    assert_equal(false, result)
+  end
+
+  def test_validate_position_user_enters_out_of_dimension_value
+    dimension = 4
+    number_mines = 1
+    board = Board.new(dimension, number_mines)
+    result = board.validate_position('8')
+    assert_equal(false, result)
+    result = board.validate_position('-1')
+    assert_equal(false, result)
+  end
+
+  def test_validate_position_user_enters_correct_value
+    dimension = 4
+    number_mines = 1
+    board = Board.new(dimension, number_mines)
+    result = board.validate_position('2')
+    assert_equal(true, result)
+  end
 end

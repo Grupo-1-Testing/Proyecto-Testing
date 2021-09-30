@@ -78,5 +78,14 @@ class Board
     end
   end
 
+  def validate_position(position)
+    if (position.to_i.to_s == position) && position.to_i.between?(0, @dimension - 1)
+      true
+    else
+      puts 'Invalid cell position. Try again.'
+      false
+    end
+  end
+
   def check_end_conditions; end
 end
