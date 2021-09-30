@@ -87,7 +87,6 @@ class Board
     end
   end
 
-test-val-position
   def validate_position(position)
     if (position.to_i.to_s == position) && position.to_i.between?(0, @dimension - 1)
       true
@@ -96,8 +95,6 @@ test-val-position
       false
     end
   end
-
-  def check_end_conditions; end
 
   def check_end_conditions(cell)
     return false if cell.has_mine && cell.state != 'FLAGGED'
@@ -109,5 +106,4 @@ test-val-position
     end
     false
   end
-  
 end

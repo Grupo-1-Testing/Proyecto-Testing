@@ -78,7 +78,9 @@ class Gamed
       cell_row = gets.chomp.strip
       print 'Choose Column: '
       cell_col = gets.chomp.strip
-      return @board.cells[cell_row.to_i][cell_col.to_i] if @board.validate_position(cell_row) && @board.validate_position(cell_col)
+      if @board.validate_position(cell_row) && @board.validate_position(cell_col)
+        return @board.cells[cell_row.to_i][cell_col.to_i]
+      end
     end
   end
 end
