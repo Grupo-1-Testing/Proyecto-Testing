@@ -62,4 +62,13 @@ class BoardTest < Test::Unit::TestCase
     result = board.validate_position('2')
     assert_equal(true, result)
   end
+
+  def test_check_flags
+    mine_cells = [0, 3]
+    board = Board.new(2, 2, mine_cells)
+    board.cells[0][0].flag
+    board.cells[1][1].flag
+    check = board.check_flags('2')
+    assert_equal(false, check)
+  end
 end
