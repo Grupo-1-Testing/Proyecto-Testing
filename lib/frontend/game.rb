@@ -16,6 +16,10 @@ class Gamed
     loop do
       print_board
       option = ask_move_option
+      while @board.check_flags(option)
+        puts 'You dont have more flags.'
+        option = ask_move_option
+      end
       case option
       when '1', '2'
         break unless make_move(option)
@@ -25,6 +29,7 @@ class Gamed
         puts 'Invalid Option'
       end
     end
+    print_board
     puts 'Game Over'
   end
 
@@ -59,7 +64,11 @@ class Gamed
 
   def make_move(move)
     cell = ask_cell
-    @board.make_move(cell, move)
+    result = @board.make_move(cell, move)
+    unless result
+      puts 'Perdiste. Qué triste :('
+      return false
+    end
     true
   end
 
@@ -69,9 +78,7 @@ class Gamed
       cell_row = gets.chomp.strip
       print 'Choose Column: '
       cell_col = gets.chomp.strip
-      if @board.validate_position(cell_row) && @board.validate_position(cell_col)
-        return @board.cells[cell_row.to_i][cell_col.to_i]
-      end
+      return @board.cells[cell_row.to_i][cell_col.to_i] if @board.validate_position(cell_row) && @board.validate_position(cell_col)
     end
   end
 end
