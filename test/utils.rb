@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
-def make_moves(board)
-  board.make_move(board.cells[1][0], '1')
-  board.make_move(board.cells[0][0], '2')
+def get_first_cell(board)
+  return board.cells[0][1] if board.cells[1][0].state == 'DISCOVERED'
+
+  board.cells[1][0]
 end
