@@ -74,5 +74,4 @@ class Gamed
       end
     end
   end
-
 end
