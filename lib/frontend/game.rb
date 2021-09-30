@@ -59,7 +59,11 @@ class Game
 
   def make_move(move)
     cell = ask_cell
-    @board.make_move(cell, move)
+    result = @board.make_move(cell, move)
+    unless result
+      puts 'Perdiste. Qué triste :('
+      return false
+    end
     true
   end
 
@@ -69,9 +73,7 @@ class Game
       cell_row = gets.chomp.strip
       print 'Choose Column: '
       cell_col = gets.chomp.strip
-      if validate_position(cell_row) && validate_position(cell_col)
-        return @board.cells[cell_row.to_i][cell_col.to_i]
-      end
+      return @board.cells[cell_row.to_i][cell_col.to_i] if validate_position(cell_row) && validate_position(cell_col)
     end
   end
 
