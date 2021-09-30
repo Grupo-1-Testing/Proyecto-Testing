@@ -2,6 +2,7 @@
 
 require_relative 'test_helper'
 require_relative '../lib/backend/board'
+require_relative 'utils'
 require 'test/unit'
 
 class BoardTest < Test::Unit::TestCase
@@ -63,6 +64,7 @@ class BoardTest < Test::Unit::TestCase
     assert_equal(true, result)
   end
 
+
   def test_check_flags_limit
     mine_cells = [0, 3]
     board = Board.new(2, 2, mine_cells)
@@ -78,5 +80,50 @@ class BoardTest < Test::Unit::TestCase
     board.make_move(board.cells[0][0], '2')
     check = board.check_flags('2')
     assert_equal(false, check)
+
+  def test_make_move_discover_valid_cell
+    mine_cells = [0, 3]
+    board = Board.new(2, 2, mine_cells)
+    cell = board.cells[1][0]
+    result = board.make_move(cell, '1')
+    assert_equal('DISCOVERED', cell.state)
+    assert_equal(2, result)
+  end
+
+  def test_make_move_discover_mine
+    mine_cells = [0, 3]
+    board = Board.new(2, 2, mine_cells)
+    cell = board.cells[0][0]
+    result = board.make_move(cell, '1')
+    assert_equal('DISCOVERED', cell.state)
+    assert_equal(1, result)
+  end
+
+  def test_make_move_discover_flag_cell
+    mine_cells = [0, 3]
+    board = Board.new(2, 2, mine_cells)
+    cell = board.cells[1][0]
+    result = board.make_move(cell, '2')
+    assert_equal('FLAGGED', cell.state)
+    assert_equal(2, result)
+  end
+
+  def test_make_move_win_game_last_move_flag
+    mine_cells = [0, 3]
+    board = Board.new(2, 2, mine_cells)
+    make_moves(board)
+    board.make_move(board.cells[1][0], '1')
+    result = board.make_move(board.cells[1][1], '2')
+    assert_equal(3, result)
+  end
+
+  def test_make_move_win_game_last_move_discover
+    mine_cells = [0, 3]
+    board = Board.new(2, 2, mine_cells)
+    make_moves(board)
+    board.make_move(board.cells[1][1], '2')
+    result = board.make_move(board.cells[0][1], '1')
+    assert_equal(3, result)
+
   end
 end
