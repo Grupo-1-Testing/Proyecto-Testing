@@ -5,12 +5,11 @@ require_relative '../backend/board'
 
 # Represents the user interface used to play mineseaker
 class Game
-  DIMENSION = 2
-  NMINES = 2
+  DIMENSION = 3
+  NMINES = 3
 
   def initialize
-    mine_cells = [0, 3]
-    @board = Board.new(DIMENSION, NMINES, mine_cells)
+    @board = Board.new(DIMENSION, NMINES)
   end
 
   def play
