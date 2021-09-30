@@ -63,8 +63,9 @@ class Board
     check_conditions ? 1 : 0
   end
 
-  def check_flags
-    return true if @flagged_cells == number_mines
+  def check_flags(option)
+    return true if @flagged_cells == number_mines && option == '2'
+    false
   end
 
   def choose_start_cell

@@ -16,7 +16,7 @@ class Game
     loop do
       print_board
       option = ask_move_option
-      if @board.check_flags
+      while @board.check_flags(option)
         puts 'You dont have more flags.'
         option = ask_move_option
       end
