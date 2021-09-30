@@ -16,6 +16,10 @@ class Game
     loop do
       print_board
       option = ask_move_option
+      if @board.check_flags
+        puts 'You dont have more flags.'
+        option = ask_move_option
+      end
       case option
       when '1', '2'
         break unless make_move(option)
@@ -25,6 +29,7 @@ class Game
         puts 'Invalid Option'
       end
     end
+    print_board
     puts 'Game Over'
   end
 

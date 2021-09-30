@@ -63,6 +63,10 @@ class Board
     check_conditions ? 1 : 0
   end
 
+  def check_flags
+    return true if @flagged_cells == number_mines
+  end
+
   def choose_start_cell
     random_start_cell = Array((0...@dimension**2).to_set - @mine_cells.to_set).sample(1)[0]
     @cells[random_start_cell.div(@dimension)][random_start_cell % @dimension].discover
@@ -74,8 +78,6 @@ class Board
       cell.discover
       check_end_conditions(cell)
     when '2'
-      raise 'Invalid value' if @flagged_cells == number_mines
-
       cell.flag
       @flagged_cells += 1
     else
