@@ -18,4 +18,7 @@ class Cell
   def flag
     @state = 'FLAGGED'
   end
+  def unflag
+    @state = 'CLOSED'
+  end
 end
