@@ -4,7 +4,7 @@ require 'table_print'
 require_relative '../backend/board'
 
 # Represents the user interface used to play mineseaker
-class Gamed
+class Game
   DIMENSION = 3
   NMINES = 3
 
