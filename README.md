@@ -1,6 +1,8 @@
 # Proyecto Testing Grupo 1
 
-![](https://app.travis-ci.com/Grupo-1-Testing/Proyecto-Testing.svg?branch=main)
+<a href="https://app.travis-ci.com/Grupo-1-Testing/Proyecto-Testing.svg?branch=main"><img src="https://app.travis-ci.com/Grupo-1-Testing/Proyecto-Testing.svg?branch=main" width=100></a>
+<a href="https://sonarcloud.io/dashboard?id=Grupo-1-Testing_Proyecto-Testing"><img src="https://sonarcloud.io/images/project_badges/sonarcloud-white.svg" width=100></a>
+
 ## Integrantes
 * Vicente Espinosa
 * José Manuel Domínguez
