@@ -17,5 +17,6 @@ class Cell
 
   def flag
     @state = 'FLAGGED'
+    
   end
 end
