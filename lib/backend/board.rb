@@ -12,6 +12,7 @@ class Board
     @number_mines = number_mines
     @mine_cells = mine_cells || Array(0...@dimension * @dimension).sample(@number_mines)
     @cells = []
+    @flagged_cells = 0
     create_board
     update_cell_values
     choose_start_cell
@@ -62,6 +63,12 @@ class Board
     check_conditions ? 1 : 0
   end
 
+  def check_flags(option)
+    return true if @flagged_cells == number_mines && option == '2'
+
+    false
+  end
+
   def choose_start_cell
     random_start_cell = Array((0...@dimension**2).to_set - @mine_cells.to_set).sample(1)[0]
     @cells[random_start_cell.div(@dimension)][random_start_cell % @dimension].discover
@@ -71,12 +78,23 @@ class Board
     case move
     when '1'
       cell.discover
+      check_end_conditions(cell)
     when '2'
       cell.flag
+      @flagged_cells += 1
     else
       raise 'Invalid value'
     end
   end
 
-  def check_end_conditions; end
+  def check_end_conditions(cell)
+    return false if cell.has_mine && cell.state != 'FLAGGED'
+
+    cells.each do |row|
+      row.each do |c|
+        return true if c.state == 'CLOSED'
+      end
+    end
+    false
+  end
 end
