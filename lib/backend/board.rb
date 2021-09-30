@@ -93,6 +93,6 @@ class Board
         return true if c.state == 'CLOSED'
       end
     end
-    return 'LOSER'
+    false
   end
 end

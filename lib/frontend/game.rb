@@ -65,12 +65,9 @@ class Game
   def make_move(move)
     cell = ask_cell
     result = @board.make_move(cell, move)
-    case result
-    when 'LOSER'
+    unless result
       puts 'Perdiste. Qué triste :('
       return false
-    when 'NO_FLAGS'
-
     end
     true
   end
@@ -93,5 +90,4 @@ class Game
       false
     end
   end
-
 end
