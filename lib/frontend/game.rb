@@ -5,7 +5,7 @@ require_relative '../backend/board'
 
 # Represents the user interface used to play mineseaker
 class Game
-  DIMENSION = 11
+  DIMENSION = 3
   NMINES = 3
 
   def initialize
@@ -13,12 +13,19 @@ class Game
   end
 
   def play
-    continue = true
-
-    while continue
+    loop do
       print_board
-      continue = ask_movement
+      option = ask_move_option
+      case option
+      when '1', '2'
+        break unless make_move(option)
+      when '3'
+        break
+      else
+        puts 'Invalid Option'
+      end
     end
+    puts 'Game Over'
   end
 
   def print_board
@@ -42,26 +49,11 @@ class Game
     end
   end
 
-  def ask_movement
-    option = ask_move_option
-
-    case option
-    when '1', '2'
-      make_move(option)
-    when '3'
-      exit
-    else
-      puts 'Por favor ingresar opción válida'
-      ask_movement
-    end
-  end
-
   def ask_move_option
-    puts 'Ingresa número de jugada:',
-         '(1) Descubrir celda',
-         '(2) Flag celda',
+    puts 'Choose play:',
+         '(1) Discover cell',
+         '(2) Flag cell',
          '(3) Exit'
-
     gets.chomp
   end
 
@@ -72,26 +64,23 @@ class Game
   end
 
   def ask_cell
-    puts 'Ingresa fila de celda:'
-    cell_row = validate_cell(gets.chomp)
-
-    puts 'Ingresa columna de celda:'
-    cell_col = validate_cell(gets.chomp)
-
-    @board.cells[cell_row][cell_col]
-  end
-
-  def validate_cell(position)
-    if (position.to_i.to_s == position) && position.to_i.between?(0, @board.dimension - 1)
-      position.to_i
-    else
-      puts 'Por favor ingresar número válido'
-      ask_cell
+    loop do
+      print 'Choose Row: '
+      cell_row = gets.chomp.strip
+      print 'Choose Column: '
+      cell_col = gets.chomp.strip
+      if validate_position(cell_row) && validate_position(cell_col)
+        return @board.cells[cell_row.to_i][cell_col.to_i]
+      end
     end
   end
 
-  def exit
-    puts 'Game Over'
-    exit!
+  def validate_position(position)
+    if (position.to_i.to_s == position) && position.to_i.between?(0, @board.dimension - 1)
+      true
+    else
+      puts 'Invalid cell position. Try again.'
+      false
+    end
   end
 end
