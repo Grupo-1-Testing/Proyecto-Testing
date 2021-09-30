@@ -64,7 +64,6 @@ class BoardTest < Test::Unit::TestCase
     assert_equal(true, result)
   end
 
-
   def test_check_flags_limit
     mine_cells = [0, 3]
     board = Board.new(2, 2, mine_cells)
@@ -80,6 +79,16 @@ class BoardTest < Test::Unit::TestCase
     board.make_move(board.cells[0][0], '2')
     check = board.check_flags('2')
     assert_equal(false, check)
+  end
+
+  def test_check_unflag
+    mine_cells = [0]
+    board = Board.new(2, 2, mine_cells)
+    board.make_move(board.cells[0][0], '2')
+    board.make_move(board.cells[0][0], '2')
+    check = board.cells[0][0].state
+    assert_equal('CLOSED', check)
+  end
 
   def test_make_move_discover_valid_cell
     mine_cells = [0, 3]
@@ -124,6 +133,5 @@ class BoardTest < Test::Unit::TestCase
     board.make_move(board.cells[1][1], '2')
     result = board.make_move(board.cells[0][1], '1')
     assert_equal(3, result)
-
   end
 end
