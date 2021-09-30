@@ -16,6 +16,10 @@ class Game
     loop do
       print_board
       option = ask_move_option
+      if @board.check_flags
+        puts 'You dont have more flags.'
+        option = ask_move_option
+      end
       case option
       when '1', '2'
         break unless make_move(option)
@@ -25,6 +29,7 @@ class Game
         puts 'Invalid Option'
       end
     end
+    print_board
     puts 'Game Over'
   end
 
@@ -60,9 +65,12 @@ class Game
   def make_move(move)
     cell = ask_cell
     result = @board.make_move(cell, move)
-    unless result
+    case result
+    when 'LOSER'
       puts 'Perdiste. Qué triste :('
       return false
+    when 'NO_FLAGS'
+
     end
     true
   end
@@ -85,4 +93,5 @@ class Game
       false
     end
   end
+
 end
