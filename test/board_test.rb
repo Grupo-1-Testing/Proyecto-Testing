@@ -72,7 +72,7 @@ class BoardTest < Test::Unit::TestCase
     cell = board.cells.first.first
     board.make_move(cell, '9')
     assert(false)
-  rescue
+  rescue StandardError
     assert(true)
   end
 
@@ -102,24 +102,23 @@ class BoardTest < Test::Unit::TestCase
     assert_equal(true, result)
   end
 
-  def check_end_conditions(cell)
-    return false if cell.has_mine && cell.state != 'FLAGGED'
-
-    cells.each do |row|
-      row.each { |c| return true if c.state == 'CLOSED' }
-    end
-    false
-  end
-
   def test_check_end_conditions_lose
     mine_cells = [0, 3]
     board = Board.new(2, 2, mine_cells)
     cell = board.cells.first.first
     result = board.check_end_conditions(cell, '1')
-    assert_equal(result, false)
+    assert_equal(result, 1)
   end
 
-  def test_check_end_conditions_win
+  def test_check_end_conditions_continue_playing
+    mine_cells = [0, 3]
+    board = Board.new(2, 2, mine_cells)
+    cell = board.cells.first.last
+    result = board.check_end_conditions(cell, '1')
+    assert_equal(result, 2)
+  end
+
+  def test_check_end_conditions_win_last_move_discover
     mine_cells = [0]
     board = Board.new(2, 1, mine_cells)
     cell = board.cells.first.first
@@ -131,6 +130,21 @@ class BoardTest < Test::Unit::TestCase
     cell = board.cells.last.last
     board.make_move(cell, '1')
     result = board.check_end_conditions(cell, '1')
-    assert_equal(result, false)
+    assert_equal(result, 3)
+  end
+
+  def test_check_end_conditions_win_last_move_flag
+    mine_cells = [0]
+    board = Board.new(2, 1, mine_cells)
+    cell = board.cells.first.last
+    board.make_move(cell, '1')
+    cell = board.cells.last.first
+    board.make_move(cell, '1')
+    cell = board.cells.last.last
+    board.make_move(cell, '1')
+    board.check_end_conditions(cell, '1')
+    cell = board.cells.first.first
+    result = board.make_move(cell, '2')
+    assert_equal(result, 3)
   end
 end

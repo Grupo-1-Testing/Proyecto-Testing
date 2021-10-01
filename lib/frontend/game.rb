@@ -5,11 +5,12 @@ require_relative '../backend/board'
 
 # Represents the user interface used to play mineseaker
 class Game
-  DIMENSION = 3
-  NMINES = 3
+  DIMENSION = 2
+  NMINES = 2
 
   def initialize
-    @board = Board.new(DIMENSION, NMINES)
+    mine_cells = [0, 3]
+    @board = Board.new(DIMENSION, NMINES, mine_cells)
   end
 
   def play
@@ -65,11 +66,16 @@ class Game
   def make_move(move)
     cell = ask_cell
     result = @board.make_move(cell, move)
-    unless result
+    case result
+    when 1
       puts 'Perdiste. Qué triste :('
-      return false
+      false
+    when 2
+      true
+    else
+      puts 'Ganaste! :D'
+      false
     end
-    true
   end
 
   def ask_cell

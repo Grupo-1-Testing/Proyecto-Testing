@@ -95,13 +95,13 @@ class Board
   end
 
   def check_end_conditions(cell, move)
-    return false if cell.has_mine && cell.state != 'FLAGGED' && move == '1'
+    return 1 if cell.has_mine && cell.state != 'FLAGGED' && move == '1'
 
     cells.each do |row|
       row.each do |c|
-        return true if c.state == 'CLOSED'
+        return 2 if c.state == 'CLOSED'
       end
     end
-    false
+    3
   end
 end
