@@ -64,9 +64,7 @@ class Board
   end
 
   def check_flags(option)
-    return true if @flagged_cells == number_mines && option == '2'
-
-    false
+    @flagged_cells == number_mines && option == '2'
   end
 
   def choose_start_cell
@@ -78,13 +76,13 @@ class Board
     case move
     when '1'
       cell.discover
-      check_end_conditions(cell)
     when '2'
       cell.flag
       @flagged_cells += 1
     else
       raise 'Invalid value'
     end
+    check_end_conditions(cell, move)
   end
 
   def validate_position(position)
@@ -96,8 +94,8 @@ class Board
     end
   end
 
-  def check_end_conditions(cell)
-    return false if cell.has_mine && cell.state != 'FLAGGED'
+  def check_end_conditions(cell, move)
+    return false if cell.has_mine && cell.state != 'FLAGGED' && move == '1'
 
     cells.each do |row|
       row.each do |c|
