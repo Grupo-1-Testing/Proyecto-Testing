@@ -25,7 +25,7 @@
 
 ## Supuestos
  1. Asumimos que el jugador no puede descubir una celda "Flagged"
- 2. Se siguió la separación de la lógica con la vista pero, hay 2 excepciones de casos bordes (posición inválida y poner flag a una celda descubierta) donde imprimimos el error para guiar al usuario en la lógica. (Esto no afecta a los tests).
+ 2. Se siguió la separación de la lógica con la vista pero hay 2 excepciones de casos bordes (posición inválida y poner flag a una celda descubierta) donde imprimimos el error para guiar al usuario en la lógica. (Esto no afecta a los tests).
 
 
 ## Notas
