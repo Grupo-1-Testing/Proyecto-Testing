@@ -66,13 +66,13 @@ class Game
     cell = ask_cell
     result = @board.make_move(cell, move)
     case result
-    when 1
-      puts 'Perdiste. Qué triste :('
-      false
     when 2
       true
-    else
+    when 3
       puts 'Ganaste! :D'
+      false
+    else
+      puts 'Perdiste. Qué triste :('
       false
     end
   end
