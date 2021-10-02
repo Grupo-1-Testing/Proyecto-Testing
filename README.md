@@ -31,5 +31,5 @@
 ## Notas
  1. Entre el jueves y viernes tuvimos unos problemas con Travis con un instalador de Ruby que logramos solucionar el sábado cambiando la versión Ruby, esto dejó un espacio donde no se ejecutaban los tests.
 
-## Vídeo Explicativo
+## Video Explicativo
 https://www.loom.com/share/e5bd64a3dd0b4c8aab0774322e47979c
