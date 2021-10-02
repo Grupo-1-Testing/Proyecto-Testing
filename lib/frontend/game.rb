@@ -29,6 +29,7 @@ class Game
         puts 'Invalid Option'
       end
     end
+    print_board
     puts 'Game Over'
   end
 
