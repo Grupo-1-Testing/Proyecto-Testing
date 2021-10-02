@@ -79,7 +79,6 @@ class Board
     when '2'
       cell.state.eql?('CLOSED') ? cell.flag : cell.unflag
       @flagged_cells += cell.state.eql?('FLAGGED') ? 1 : -1
-      check_end_conditions(cell)
     else
       raise 'Invalid value'
     end
@@ -97,7 +96,6 @@ class Board
 
   def check_end_conditions(cell, move)
     return false if cell.has_mine && cell.state != 'FLAGGED' && move == '1'
-
 
     cells.each do |row|
       row.each do |c|
