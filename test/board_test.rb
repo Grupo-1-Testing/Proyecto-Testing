@@ -73,7 +73,7 @@ class BoardTest < Test::Unit::TestCase
     cell = board.cells.first.first
     board.make_move(cell, '9')
     assert(false)
-  rescue
+  rescue StandardError
     assert(true)
   end
 
@@ -133,6 +133,7 @@ class BoardTest < Test::Unit::TestCase
     board.make_move(cell, '1')
     result = board.check_end_conditions(cell, '1')
     assert_equal(result, false)
+  end
 
   def test_check_flags_limit
     mine_cells = [0, 3]
@@ -185,7 +186,5 @@ class BoardTest < Test::Unit::TestCase
     result = board.make_move(cell, '2')
     assert_equal('FLAGGED', cell.state)
     assert_equal(2, result)
-  end
-
   end
 end
