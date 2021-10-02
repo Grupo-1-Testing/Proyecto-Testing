@@ -133,58 +133,58 @@ class BoardTest < Test::Unit::TestCase
     board.make_move(cell, '1')
     result = board.check_end_conditions(cell, '1')
     assert_equal(result, false)
+  end
 
-    def test_check_flags_limit
-      mine_cells = [0, 3]
-      board = Board.new(2, 2, mine_cells)
-      board.make_move(board.cells[0][0], '2')
-      board.make_move(board.cells[1][1], '2')
-      check = board.check_flags('2')
-      assert_equal(true, check)
-    end
+  def test_check_flags_limit
+    mine_cells = [0, 3]
+    board = Board.new(2, 2, mine_cells)
+    board.make_move(board.cells[0][0], '2')
+    board.make_move(board.cells[1][1], '2')
+    check = board.check_flags('2')
+    assert_equal(true, check)
+  end
 
-    def test_check_flags
-      mine_cells = [0, 3]
-      board = Board.new(2, 2, mine_cells)
-      board.make_move(board.cells[0][0], '2')
-      check = board.check_flags('2')
-      assert_equal(false, check)
-    end
+  def test_check_flags
+    mine_cells = [0, 3]
+    board = Board.new(2, 2, mine_cells)
+    board.make_move(board.cells[0][0], '2')
+    check = board.check_flags('2')
+    assert_equal(false, check)
+  end
 
-    def test_check_unflag
-      mine_cells = [0]
-      board = Board.new(2, 2, mine_cells)
-      board.make_move(board.cells[0][0], '2')
-      board.make_move(board.cells[0][0], '2')
-      check = board.cells[0][0].state
-      assert_equal('CLOSED', check)
-    end
+  def test_check_unflag
+    mine_cells = [0]
+    board = Board.new(2, 2, mine_cells)
+    board.make_move(board.cells[0][0], '2')
+    board.make_move(board.cells[0][0], '2')
+    check = board.cells[0][0].state
+    assert_equal('CLOSED', check)
+  end
 
-    def test_make_move_discover_valid_cell
-      mine_cells = [0, 3]
-      board = Board.new(2, 2, mine_cells)
-      cell = get_first_cell(board)
-      result = board.make_move(cell, '1')
-      assert_equal('DISCOVERED', cell.state)
-      assert_equal(2, result)
-    end
+  def test_make_move_discover_valid_cell
+    mine_cells = [0, 3]
+    board = Board.new(2, 2, mine_cells)
+    cell = get_first_cell(board)
+    result = board.make_move(cell, '1')
+    assert_equal('DISCOVERED', cell.state)
+    assert_equal(2, result)
+  end
 
-    def test_make_move_discover_mine
-      mine_cells = [0, 3]
-      board = Board.new(2, 2, mine_cells)
-      cell = board.cells[0][0]
-      result = board.make_move(cell, '1')
-      assert_equal('DISCOVERED', cell.state)
-      assert_equal(1, result)
-    end
+  def test_make_move_discover_mine
+    mine_cells = [0, 3]
+    board = Board.new(2, 2, mine_cells)
+    cell = board.cells[0][0]
+    result = board.make_move(cell, '1')
+    assert_equal('DISCOVERED', cell.state)
+    assert_equal(1, result)
+  end
 
-    def test_make_move_flag_cell
-      mine_cells = [0, 3]
-      board = Board.new(2, 2, mine_cells)
-      cell = get_first_cell(board)
-      result = board.make_move(cell, '2')
-      assert_equal('FLAGGED', cell.state)
-      assert_equal(2, result)
-    end
+  def test_make_move_flag_cell
+    mine_cells = [0, 3]
+    board = Board.new(2, 2, mine_cells)
+    cell = get_first_cell(board)
+    result = board.make_move(cell, '2')
+    assert_equal('FLAGGED', cell.state)
+    assert_equal(2, result)
   end
 end
