@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rubocop/rake_task'
-require 'rake/testtask' 
+require 'rake/testtask'
 
 task default: %w[lint test]
 
@@ -12,10 +12,10 @@ task :test do
   ruby 'test/board_test.rb'
 end
 
-Rake::TestTask.new("test:all") do |t|
-      t.libs = ["lib"]
-      t.warning = true
-      t.test_files = FileList['test/**/*_test.rb']
+Rake::TestTask.new('test:all') do |t|
+  t.libs = ['lib']
+  t.warning = true
+  t.test_files = FileList['test/**/*_test.rb']
 end
 
 task :run do
