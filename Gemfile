@@ -6,3 +6,4 @@ gem 'rake'
 gem 'rubocop'
 gem 'simplecov', require: false, group: :test
 gem 'table_print'
+gem 'test-unit'

@@ -63,6 +63,10 @@ class Board
     check_conditions ? 1 : 0
   end
 
+  def check_flags(option)
+    @flagged_cells == number_mines && option == '2'
+  end
+
   def choose_start_cell
     random_start_cell = Array((0...@dimension**2).to_set - @mine_cells.to_set).sample(1)[0]
     @cells[random_start_cell.div(@dimension)][random_start_cell % @dimension].discover
@@ -72,25 +76,37 @@ class Board
     case move
     when '1'
       cell.discover
-      check_end_conditions(cell)
     when '2'
-      raise 'Invalid value' if @flagged_cells == number_mines
-
-      cell.flag
-      @flagged_cells += 1
+      if !cell.state.eql?('DISCOVERED')
+        cell.state.eql?('CLOSED') ? cell.flag : cell.unflag
+        @flagged_cells += cell.state.eql?('FLAGGED') ? 1 : -1
+      else
+        puts 'You cant put a flag in a discoverd cell!'
+        @flagged_cells
+      end
     else
       raise 'Invalid value'
     end
+    check_end_conditions(cell, move)
   end
 
-  def check_end_conditions(cell)
-    return false if cell.has_mine && cell.state != 'FLAGGED'
+  def validate_position(position)
+    if (position.to_i.to_s == position) && position.to_i.between?(0, @dimension - 1)
+      true
+    else
+      puts 'Invalid cell position. Try again.'
+      false
+    end
+  end
+
+  def check_end_conditions(cell, move)
+    return false if cell.has_mine && cell.state != 'FLAGGED' && move == '1'
 
     cells.each do |row|
       row.each do |c|
-        return true if c.state == 'CLOSED'
+        return 2 if c.state == 'CLOSED'
       end
     end
-    false
+    3
   end
 end
