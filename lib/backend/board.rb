@@ -77,8 +77,13 @@ class Board
     when '1'
       cell.discover
     when '2'
-      cell.state.eql?('CLOSED') ? cell.flag : cell.unflag
-      @flagged_cells += cell.state.eql?('FLAGGED') ? 1 : -1
+      if !cell.state.eql?('DISCOVERED')
+        cell.state.eql?('CLOSED') ? cell.flag : cell.unflag
+        @flagged_cells += cell.state.eql?('FLAGGED') ? 1 : -1
+      else
+        puts 'You cant put a flag in a discoverd cell!'
+        @flagged_cells
+      end
     else
       raise 'Invalid value'
     end
