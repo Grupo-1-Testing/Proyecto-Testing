@@ -3,7 +3,6 @@ dist: xenial
 
 before_install:
   - gem install bundler
-  - rvm get update
 
 install:
   - bundle install
