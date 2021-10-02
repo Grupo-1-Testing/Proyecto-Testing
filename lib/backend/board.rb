@@ -79,7 +79,6 @@ class Board
     when '2'
       cell.state.eql?('CLOSED') ? cell.flag : cell.unflag
       @flagged_cells += cell.state.eql?('FLAGGED') ? 1 : -1
-      check_end_conditions(cell)
     else
       raise 'Invalid value'
     end
