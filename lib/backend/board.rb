@@ -82,6 +82,7 @@ class Board
         @flagged_cells += cell.state.eql?('FLAGGED') ? 1 : -1
       else
         puts 'You cant put a flag in a discoverd cell!'
+        @flagged_cells
       end
     else
       raise 'Invalid value'

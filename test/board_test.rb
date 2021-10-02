@@ -145,6 +145,14 @@ class BoardTest < Test::Unit::TestCase
     assert_equal('CLOSED', check)
   end
 
+  def test_flag_discovered_cell
+    board = Board.new(2, 2, [0])
+    board.make_move(board.cells[0][1], '1')
+    board.make_move(board.cells[0][1], '2')
+    check = board.cells[0][1].state
+    assert_equal('DISCOVERED', check)
+  end
+
   def test_make_move_discover_valid_cell
     board = Board.new(2, 2, [0, 3])
     cell = board.cells[1][0].state == 'DISCOVERED' ? board.cells[0][1] : board.cells[1][0]
