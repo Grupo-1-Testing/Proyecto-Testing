@@ -38,6 +38,45 @@ class BoardTest < Test::Unit::TestCase
     assert_equal([1, 2, 2, 1], values)
   end
 
+  def test_check_flags_true
+    board = Board.new(2, 1)
+    cell = board.cells.first.first
+    board.make_move(cell, '2')
+    result = board.check_flags('2')
+    assert_equal(result, true)
+  end
+
+  def test_check_flags_false
+    board = Board.new(2, 2)
+    cell = board.cells.first.first
+    board.make_move(cell, '2')
+    result = board.check_flags('2')
+    assert_equal(result, false)
+  end
+
+  def test_make_discover_move
+    board = Board.new(2, 2)
+    cell = board.cells.first.first
+    board.make_move(cell, '1')
+    assert_equal(cell.state, 'DISCOVERED')
+  end
+
+  def test_make_flag_move
+    board = Board.new(2, 2)
+    cell = board.cells.first.first
+    board.make_move(cell, '2')
+    assert_equal(cell.state, 'FLAGGED')
+  end
+
+  def test_make_invalid_move
+    board = Board.new(2, 2)
+    cell = board.cells.first.first
+    board.make_move(cell, '9')
+    assert(false)
+  rescue
+    assert(true)
+  end
+
   def test_validate_position_user_enters_a_letter
     dimension = 4
     number_mines = 1
@@ -63,6 +102,37 @@ class BoardTest < Test::Unit::TestCase
     result = board.validate_position('2')
     assert_equal(true, result)
   end
+
+  def check_end_conditions(cell)
+    return false if cell.has_mine && cell.state != 'FLAGGED'
+
+    cells.each do |row|
+      row.each { |c| return true if c.state == 'CLOSED' }
+    end
+    false
+  end
+
+  def test_check_end_conditions_lose
+    mine_cells = [0, 3]
+    board = Board.new(2, 2, mine_cells)
+    cell = board.cells.first.first
+    result = board.check_end_conditions(cell, '1')
+    assert_equal(result, false)
+  end
+
+  def test_check_end_conditions_win
+    mine_cells = [0]
+    board = Board.new(2, 1, mine_cells)
+    cell = board.cells.first.first
+    board.make_move(cell, '2')
+    cell = board.cells.first.last
+    board.make_move(cell, '1')
+    cell = board.cells.last.first
+    board.make_move(cell, '1')
+    cell = board.cells.last.last
+    board.make_move(cell, '1')
+    result = board.check_end_conditions(cell, '1')
+    assert_equal(result, false)
 
   def test_check_flags_limit
     mine_cells = [0, 3]
@@ -117,23 +187,5 @@ class BoardTest < Test::Unit::TestCase
     assert_equal(2, result)
   end
 
-  def test_make_move_win_game_last_move_flag
-    mine_cells = [0, 3]
-    board = Board.new(2, 2, mine_cells)
-    cell = get_first_cell(board)
-    board.make_move(cell, '1')
-    board.make_move(board.cells[0][0], '2')
-    result = board.make_move(board.cells[1][1], '2')
-    assert_equal(3, result)
-  end
-
-  def test_make_move_win_game_last_move_discover
-    mine_cells = [0, 3]
-    board = Board.new(2, 2, mine_cells)
-    cell = get_first_cell(board)
-    board.make_move(board.cells[1][1], '2')
-    board.make_move(board.cells[0][0], '2')
-    result = board.make_move(cell, '1')
-    assert_equal(3, result)
   end
 end
